@@ -1,0 +1,1 @@
+pub const WEBHOOK: &'static str = "Put your discord webhook url here";

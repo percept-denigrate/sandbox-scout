@@ -1,3 +1,6 @@
+mod consts;
+
 fn main() {
-    println!("Hello, world!");
+    let webhook = consts::WEBHOOK;
+    println!("{webhook}");
 }
