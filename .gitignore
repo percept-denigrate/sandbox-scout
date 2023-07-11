@@ -1,4 +1,4 @@
 /target
-/src/webhook.txt
+/src/consts.rs
 
 Cargo.lock
