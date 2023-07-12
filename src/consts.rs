@@ -1,1 +1,1 @@
-pub const WEBHOOK: &'static str = "ufy";
+pub const WEBHOOK: &'static str = "Put your webhook url here";
