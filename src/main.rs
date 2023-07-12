@@ -9,8 +9,9 @@ use serenity::{
 
 mod consts;
 
-fn main() {
-  
+#[tokio::main]
+async fn main() {
+    send("Huh".to_string()).await.unwrap();
 }
 
 async fn send(data: String) -> Result<()> {
@@ -27,7 +28,7 @@ async fn send(data: String) -> Result<()> {
         e
     });
 
-    // Execute Webhook, add metadata, content and files.
+    // Execute webhook
     webhook
         .execute(&http, true, |w| {
             w.content("content")
