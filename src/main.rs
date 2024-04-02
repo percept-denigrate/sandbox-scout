@@ -9,6 +9,7 @@ use serenity::{
 use std::env;
 use sysinfo::System;
 use inside_vm_arch_support::inside_vm;
+use antilysis::detected;
 
 mod consts;
 
@@ -35,6 +36,10 @@ async fn main() {
     sysinfo.push_str(&format!(
         "VM detected by cpuid:    {}\n",
         inside_vm()
+    ));
+    sysinfo.push_str(&format!(
+        "Antilysis:               {}\n",
+        detected()
     ));
 
     send(sysinfo).await.unwrap();
